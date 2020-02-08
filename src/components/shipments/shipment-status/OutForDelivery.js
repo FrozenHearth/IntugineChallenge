@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
+import { tableCellColor, statusDeliveredColor } from './Delivered';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class OutForDelivery extends Component {
+const styles = {
+  tableCellColor: {
+    color: tableCellColor
+  },
+  statusDeliveredColor: {
+    color: statusDeliveredColor
+  }
+};
+
+class OutForDelivery extends Component {
   constructor(props) {
     super(props);
     this.outForDeliveryItemRef = [];
@@ -13,7 +24,7 @@ export default class OutForDelivery extends Component {
     // Trigger auto-click on the first item of the shipment to display it's timeline view by default
   }
   render() {
-    const outForDelivery = this.props.outForDelivery;
+    const { outForDelivery, classes } = this.props;
     return (
       <>
         {outForDelivery
@@ -29,32 +40,32 @@ export default class OutForDelivery extends Component {
                   key={outForDelivery._id}
                 >
                   <TableCell
-                    style={{ color: '#353535' }}
+                    className={classes.tableCellColor}
                     component="th"
                     scope="row"
                     align="center"
                   >
                     #{outForDelivery.awbno ? outForDelivery.awbno : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {outForDelivery.carrier ? outForDelivery.carrier : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {outForDelivery.from ? outForDelivery.from : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {outForDelivery.to ? outForDelivery.to : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {outForDelivery.carrier ? outForDelivery.carrier : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {outForDelivery.pickup_date
                       ? moment(outForDelivery.pickup_date).format('L')
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {outForDelivery.extra_fields
                       ? moment(
                           outForDelivery.extra_fields.expected_delivery_date
@@ -62,7 +73,10 @@ export default class OutForDelivery extends Component {
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#44b856' }} align="center">
+                  <TableCell
+                    className={classes.statusDeliveredColor}
+                    align="center"
+                  >
                     {outForDelivery.current_status
                       ? outForDelivery.current_status
                       : ''}
@@ -74,3 +88,5 @@ export default class OutForDelivery extends Component {
     );
   }
 }
+
+export default withStyles(styles)(OutForDelivery);

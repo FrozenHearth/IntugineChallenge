@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
+import { tableCellColor, statusDeliveredColor } from './Delivered';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class NoInfoShipments extends Component {
+const styles = {
+  tableCellColor: {
+    color: tableCellColor
+  },
+  statusDeliveredColor: {
+    color: statusDeliveredColor
+  }
+};
+
+class NoInfoShipments extends Component {
   constructor(props) {
     super(props);
     this.noInfoYetItemRef = [];
@@ -13,7 +24,7 @@ export default class NoInfoShipments extends Component {
     // Trigger auto-click on the first item of the shipment to display it's timeline view by default
   }
   render() {
-    const noInfoShipments = this.props.noInfoShipments;
+    const { noInfoShipments, classes } = this.props;
     return (
       <>
         {noInfoShipments
@@ -29,32 +40,32 @@ export default class NoInfoShipments extends Component {
                   key={noInfoShipments._id}
                 >
                   <TableCell
-                    style={{ color: '#353535' }}
+                    className={classes.tableCellColor}
                     component="th"
                     scope="row"
                     align="center"
                   >
                     #{noInfoShipments.awbno ? noInfoShipments.awbno : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {noInfoShipments.carrier ? noInfoShipments.carrier : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {noInfoShipments.from ? noInfoShipments.from : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {noInfoShipments.to ? noInfoShipments.to : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {noInfoShipments.carrier ? noInfoShipments.carrier : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {noInfoShipments.pickup_date
                       ? moment(noInfoShipments.pickup_date).format('L')
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {noInfoShipments.extra_fields
                       ? moment(
                           noInfoShipments.extra_fields.expected_delivery_date
@@ -62,7 +73,10 @@ export default class NoInfoShipments extends Component {
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#44b856' }} align="center">
+                  <TableCell
+                    className={classes.statusDeliveredColor}
+                    align="center"
+                  >
                     {noInfoShipments.current_status
                       ? noInfoShipments.current_status
                       : ''}
@@ -74,3 +88,5 @@ export default class NoInfoShipments extends Component {
     );
   }
 }
+
+export default withStyles(styles)(NoInfoShipments);
