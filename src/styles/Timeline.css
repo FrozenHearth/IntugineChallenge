@@ -1,0 +1,74 @@
+:root {
+  --icon-circle-color: #d5deff;
+  --icon-height: 50px;
+  --icon-width: 50px;
+  --icon-padding: 0.4em;
+  --icon-border-radius: 50%;
+  --summer-sky: #3fb6dc;
+}
+
+.timeline_container {
+  border: 2px solid #e8edff;
+  width: 550px;
+  overflow: auto;
+  margin: 2em 0 2em 2em;
+}
+
+.destination_icon_circle,
+.warehouse_icon_circle {
+  background-color: var(--icon-circle-color);
+  height: var(--icon-height);
+  width: var(--icon-width);
+  padding: var(--icon-padding);
+  border-radius: var(--icon-border-radius);
+}
+
+.destination_icon_circle {
+  margin: 1em 0 0 1em;
+}
+
+.warehouse_icon_circle {
+  margin: 0 0 1em 1em;
+}
+
+.vertical_line {
+  margin-left: 2.8em;
+  border-left: 2px solid blue;
+  height: 100px;
+}
+
+.bullet {
+  float: left;
+  border-radius: 50%;
+  background: var(--summer-sky);
+  box-shadow: 0px 0px 5px var(--summer-sky);
+  width: 1em;
+  height: 1em;
+  margin-left: 2.4em;
+}
+
+.left_arrow {
+  float: left;
+  border: 1px solid var(--summer-sky);
+  margin-left: 0.5em;
+  width: 8%;
+  margin-top: 0.5em;
+}
+
+.content {
+  display: flex;
+  float: left;
+  font-size: 0.8em;
+  margin-top: -1.5em;
+  color: #899ba8;
+  margin-left: 0.2em;
+  margin-bottom: 2em;
+  padding: 1em;
+  width: 400px;
+  background: #fff;
+  border: 1px solid #e8edff;
+}
+
+.time {
+  margin-left: auto;
+}

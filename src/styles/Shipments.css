@@ -1,0 +1,39 @@
+:root {
+  --shipment-item: #d5deff;
+}
+
+.status_codes_container {
+  display: flex;
+  flex-direction: row;
+  width: 51%;
+  margin: 0 auto;
+}
+
+.status_box {
+  cursor: pointer;
+  margin: 10em auto 0 auto;
+  width: 100px;
+  height: 70px;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.status_code {
+  font-size: 1.2em;
+  float: left;
+  margin-left: 0.5em;
+  font-weight: 600;
+}
+
+.status_code_quantity {
+  font-size: 2em;
+  font-weight: 300;
+}
+
+.shipment_item:hover {
+  background: var(--shipment-item);
+}
+
+.shipment_item:active {
+  background: var(--shipment-item);
+}
