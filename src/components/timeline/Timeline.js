@@ -3,6 +3,7 @@ import DestinationIcon from '../../assets/images/destination.svg';
 import WarehouseIcon from '../../assets/images/warehouse.svg';
 import { withStyles } from '@material-ui/core/styles';
 import '../../styles/Timeline.css';
+import TimelineView from './TimelineView';
 
 const styles = {
   destinationIcon: {
@@ -16,23 +17,31 @@ const styles = {
 class Timeline extends Component {
   render() {
     const { classes } = this.props;
-    const { clickedShipmentId, clickedStatusCode } = this.props;
+    const {
+      clickedShipmentId,
+      clickedStatusCode,
+      delivered,
+      inTransit,
+      outForDelivery,
+      undelivered
+    } = this.props;
     /* ------------------------------------------------
     Get timeline view for shipment item that is clicked
     --------------------------------------------------- */
-    const deliveredTimelineView = this.props.delivered
+
+    const deliveredTimelineView = delivered
       .filter(item => item._id === clickedShipmentId)
       .map(sc => sc.scan);
 
-    const inTransitTimelineView = this.props.inTransit
+    const inTransitTimelineView = inTransit
       .filter(item => item._id === clickedShipmentId)
       .map(sc => sc.scan);
 
-    const outForDeliveryTimelineView = this.props.outForDelivery
+    const outForDeliveryTimelineView = outForDelivery
       .filter(item => item._id === clickedShipmentId)
       .map(sc => sc.scan);
 
-    const undeliveredTimelineView = this.props.undelivered
+    const undeliveredTimelineView = undelivered
       .filter(item => item._id === clickedShipmentId)
       .map(sc => sc.scan);
 
@@ -48,26 +57,14 @@ class Timeline extends Component {
         {clickedStatusCode === 'DEL'
           ? deliveredTimelineView
               .filter(el => el) // Filtering out undefined and null values
-              .map(el =>
-                Object.keys(el).map(key => (
-                  <div key={key}>
-                    <div className="vertical_line"></div>
-                    <div className="bullet"></div>
-                    <div className="left_arrow"></div>
-                    <div
-                      className="content"
-                      style={
-                        el[key].status_detail === 'DELIVERED'
-                          ? { background: '#d5deff', color: '#44b856' }
-                          : {}
-                      }
-                    >
-                      <p className="shipping_status">
-                        {key ? el[key].location : ''}
-                      </p>
-                      <p className="time">{key ? el[key].time : ''}</p>
-                    </div>
-                  </div>
+              .map(item =>
+                Object.keys(item).map(key => (
+                  <TimelineView
+                    clickedStatusCode={clickedStatusCode}
+                    key={key}
+                    item={item}
+                    itemKey={key}
+                  />
                 ))
               )
           : ''}
@@ -75,19 +72,14 @@ class Timeline extends Component {
         {clickedStatusCode === 'INT'
           ? inTransitTimelineView
               .filter(el => el)
-              .map(el =>
-                Object.keys(el).map(key => (
-                  <div key={key}>
-                    <div className="vertical_line"></div>
-                    <div className="bullet"></div>
-                    <div className="left_arrow"></div>
-                    <div className="content">
-                      <p className="shipping_status">
-                        {key ? el[key].location : ''}
-                      </p>
-                      <p className="time">{key ? el[key].time : ''}</p>
-                    </div>
-                  </div>
+              .map(item =>
+                Object.keys(item).map(key => (
+                  <TimelineView
+                    clickedStatusCode={clickedStatusCode}
+                    key={key}
+                    item={item}
+                    itemKey={key}
+                  />
                 ))
               )
           : ''}
@@ -95,56 +87,39 @@ class Timeline extends Component {
         {clickedStatusCode === 'UND'
           ? undeliveredTimelineView
               .filter(el => el)
-              .map(el =>
-                Object.keys(el).map(key => (
-                  <div key={key}>
-                    <div className="vertical_line"></div>
-                    <div className="bullet"></div>
-                    <div className="left_arrow"></div>
-                    <div className="content">
-                      <p className="shipping_status">
-                        {key ? el[key].location : ''}
-                      </p>
-                      <p className="time">{key ? el[key].time : ''}</p>
-                    </div>
-                  </div>
+              .map(item =>
+                Object.keys(item).map(key => (
+                  <TimelineView
+                    clickedStatusCode={clickedStatusCode}
+                    key={key}
+                    item={item}
+                    itemKey={key}
+                  />
+                ))
+              )
+          : ''}
+
+        {clickedStatusCode === 'OOD'
+          ? outForDeliveryTimelineView
+              .filter(el => el)
+              .map(item =>
+                Object.keys(item).map(key => (
+                  <TimelineView
+                    clickedStatusCode={clickedStatusCode}
+                    key={key}
+                    item={item}
+                    itemKey={key}
+                  />
                 ))
               )
           : ''}
 
         {clickedStatusCode === 'NFI' ? (
-          <>
-            <div className="vertical_line"></div>
-            <div className="bullet"></div>
-            <div className="left_arrow"></div>
-            <div className="content">
-              <p className="shipping_status">No Information Yet</p>
-              <p className="time">N/A</p>
-            </div>
-          </>
+          // No need of item and key props here, as we're only rendering a simple HTML template
+          <TimelineView clickedStatusCode={clickedStatusCode} />
         ) : (
           ''
         )}
-
-        {clickedStatusCode === 'OOD'
-          ? outForDeliveryTimelineView
-              .filter(el => el)
-              .map(el =>
-                Object.keys(el).map(key => (
-                  <div key={key}>
-                    <div className="vertical_line"></div>
-                    <div className="bullet"></div>
-                    <div className="left_arrow"></div>
-                    <div className="content">
-                      <p className="shipping_status">
-                        {key ? el[key].location : ''}
-                      </p>
-                      <p className="time">{key ? el[key].time : ''}</p>
-                    </div>
-                  </div>
-                ))
-              )
-          : ''}
 
         <div className="vertical_line"></div>
         <div className="warehouse_icon_circle">

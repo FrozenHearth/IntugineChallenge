@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import InTransit from './InTransit';
-import UndeliveredShipments from './Undelivered';
-import NoInfoShipments from './NoInformationYet';
-import DeliveredShipments from './Delivered';
-import OutForDelivery from './OutForDelivery';
+import ShipmentTableHeader from './ShipmentTableHeader';
+import InTransit from './shipment-status/InTransit';
+import UndeliveredShipments from './shipment-status/Undelivered';
+import NoInfoShipments from './shipment-status/NoInformationYet';
+import DeliveredShipments from './shipment-status/Delivered';
+import OutForDelivery from './shipment-status/OutForDelivery';
 import axios from 'axios';
-import '../../styles/Shipments.css';
 import Timeline from '../timeline/Timeline';
+import { withStyles } from '@material-ui/core/styles';
+import '../../styles/Shipments.css';
 
-export class ShipmentList extends Component {
+const styles = {
+  stickyTable: {
+    border: '2px solid #e8edff',
+    margin: '0 4em 0 auto'
+  },
+  tableContainer: {
+    float: 'right',
+    margin: '2em 5em 2em 3em',
+    overflow: 'auto',
+    maxHeight: '1200px',
+    width: '600px'
+  }
+};
+
+class ShipmentList extends Component {
   constructor(props) {
     super(props);
     this.delCardRef = [];
@@ -82,7 +96,7 @@ export class ShipmentList extends Component {
       clickedStatusCode === 'OOD'
     ) {
       this.setState({
-        clickedStatusCode: clickedStatusCode
+        clickedStatusCode
       });
     }
   };
@@ -92,7 +106,8 @@ export class ShipmentList extends Component {
     });
   };
   render() {
-    const shipmentList = this.state.shipmentList;
+    const { shipmentList, clickedShipmentId } = this.state;
+    const { classes } = this.props;
 
     /*------------------------------------------------
      Get filtered data(in right hand side table)
@@ -114,20 +129,18 @@ export class ShipmentList extends Component {
     const outForDeliveryShipmentData = shipmentList.filter(
       csc => csc.current_status_code === 'OOD'
     );
-    const counterStatusCodes = this.state.counterStatusCodes;
-    const clickedStatusCode = this.state.clickedStatusCode;
+    const { counterStatusCodes, clickedStatusCode } = this.state;
     return (
       <>
         <div className="status_codes_container">
           {Object.keys(counterStatusCodes).map(key => (
             <div
               onClick={() => this.clickedCounter(key)}
-              className="status_box"
-              style={
+              className={`status_box ${
                 key === clickedStatusCode
-                  ? { backgroundColor: '#2e5bff', color: '#fff' }
-                  : { backgroundColor: '#d5deff', color: '#3460ff' }
-              }
+                  ? 'active_status_box_color'
+                  : 'default_status_box_color'
+              }`}
               key={key}
             >
               <span className="status_code">{key}</span>
@@ -135,118 +148,14 @@ export class ShipmentList extends Component {
             </div>
           ))}
         </div>
-        <div
-          style={{
-            float: 'right',
-            margin: '2em 5em 2em 3em',
-            overflow: 'auto',
-            maxHeight: '1200px',
-            width: '600px'
-          }}
-        >
+        <div className={classes.tableContainer}>
           <Table
             stickyHeader
             aria-label="sticky table"
-            style={{
-              border: '2px solid #e8edff',
-              margin: '0 4em 0 auto'
-            }}
+            className={classes.stickyTable}
           >
             <TableHead>
-              <TableRow>
-                <TableCell
-                  style={{
-                    minWidth: '100px',
-                    color: '#c3cbd8',
-                    fontSize: '0.6em',
-                    letterSpacing: '1px',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  AWB Number
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontSize: '0.6em',
-                    color: '#c3cbd8',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  Transporter
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontSize: '0.6em',
-                    color: '#c3cbd8',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  Source
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontSize: '0.6em',
-                    color: '#c3cbd8',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  Destination
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontSize: '0.6em',
-                    color: '#c3cbd8',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  Brand
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontSize: '0.6em',
-                    minWidth: '100px',
-                    color: '#c3cbd8',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  Start Date
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontSize: '0.6em',
-                    color: '#c3cbd8',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  ETD
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontSize: '0.6em',
-                    minWidth: '130px',
-                    color: '#c3cbd8',
-                    backgroundColor: 'white',
-                    textTransform: 'uppercase'
-                  }}
-                  align="center"
-                >
-                  Status
-                </TableCell>
-              </TableRow>
+              <ShipmentTableHeader />
             </TableHead>
             <TableBody style={{ cursor: 'pointer' }}>
               {deliveredShipmentData && clickedStatusCode === 'DEL' ? (
@@ -279,7 +188,7 @@ export class ShipmentList extends Component {
           </Table>
         </div>
         <Timeline
-          clickedShipmentId={this.state.clickedShipmentId}
+          clickedShipmentId={clickedShipmentId}
           clickedStatusCode={clickedStatusCode}
           delivered={deliveredShipmentData}
           inTransit={inTransitShipmentData}
@@ -291,3 +200,5 @@ export class ShipmentList extends Component {
     );
   }
 }
+
+export default withStyles(styles)(ShipmentList);

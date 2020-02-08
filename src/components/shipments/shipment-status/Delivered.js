@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
-export default class DeliveredShipments extends Component {
+export const tableCellColor = '#353535';
+export const statusDeliveredColor = '#44b856';
+
+const styles = {
+  statusDeliveredColor: {
+    color: statusDeliveredColor
+  },
+  tableCellColor: {
+    color: tableCellColor
+  },
+  tableRowText: {
+    color: tableCellColor,
+    fontSize: '0.9em'
+  }
+};
+
+class DeliveredShipments extends Component {
   constructor(props) {
     super(props);
     this.deliveredItemRef = [];
@@ -18,7 +35,7 @@ export default class DeliveredShipments extends Component {
     }
   }
   render() {
-    const delivered = this.props.delivered;
+    const { delivered, classes } = this.props;
     return (
       <>
         {delivered
@@ -32,45 +49,28 @@ export default class DeliveredShipments extends Component {
                   className="shipment_item"
                   key={delivered._id}
                 >
-                  <TableCell
-                    style={{ color: '#353535' }}
-                    component="th"
-                    scope="row"
-                    align="center"
-                  >
+                  <TableCell component="th" scope="row" align="center">
                     #{delivered.awbno ? delivered.awbno : ''}
                   </TableCell>
-                  <TableCell
-                    style={{ color: '#353535', fontSize: '0.9em' }}
-                    align="center"
-                  >
+                  <TableCell className={classes.tableRowText} align="center">
                     {delivered.carrier ? delivered.carrier : ''}
                   </TableCell>
-                  <TableCell
-                    style={{ color: '#353535', fontSize: '0.8em' }}
-                    align="center"
-                  >
+                  <TableCell className={classes.tableRowText} align="center">
                     {delivered.from ? delivered.from : 'NA'}
                   </TableCell>
-                  <TableCell
-                    style={{ color: '#353535', fontSize: '0.8em' }}
-                    align="center"
-                  >
+                  <TableCell className={classes.tableRowText} align="center">
                     {delivered.to ? delivered.to : 'NA'}
                   </TableCell>
-                  <TableCell
-                    style={{ color: '#353535', fontSize: '0.9em' }}
-                    align="center"
-                  >
+                  <TableCell className={classes.tableRowText} align="center">
                     {delivered.carrier ? delivered.carrier : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {delivered.pickup_date
                       ? moment(delivered.pickup_date).format('L')
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {delivered.extra_fields
                       ? moment(
                           delivered.extra_fields.expected_delivery_date
@@ -78,7 +78,10 @@ export default class DeliveredShipments extends Component {
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#44b856' }} align="center">
+                  <TableCell
+                    className={classes.statusDeliveredColor}
+                    align="center"
+                  >
                     {delivered.current_status ? delivered.current_status : ''}
                   </TableCell>
                 </TableRow>
@@ -88,3 +91,5 @@ export default class DeliveredShipments extends Component {
     );
   }
 }
+
+export default withStyles(styles)(DeliveredShipments);

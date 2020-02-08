@@ -18,6 +18,21 @@
   padding: 1em;
 }
 
+.delivery_success {
+  background: #d5deff;
+  color: #44b856;
+}
+
+.active_status_box_color {
+  background-color: #2e5bff;
+  color: #fff;
+}
+
+.default_status_box_color {
+  background-color: #d5deff;
+  color: #3460ff;
+}
+
 .status_code {
   font-size: 1.2em;
   float: left;

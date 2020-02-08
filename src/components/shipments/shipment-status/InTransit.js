@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
+import { tableCellColor, statusDeliveredColor } from './Delivered';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class InTransit extends Component {
+const styles = {
+  tableCellColor: {
+    color: tableCellColor
+  },
+  statusDeliveredColor: {
+    color: statusDeliveredColor
+  }
+};
+
+class InTransit extends Component {
   constructor(props) {
     super(props);
     this.inTransitItemRef = [];
@@ -13,7 +24,7 @@ export default class InTransit extends Component {
     // Trigger auto-click on the first item of the shipment to display it's timeline view by default
   }
   render() {
-    const inTransit = this.props.inTransit;
+    const { inTransit, classes } = this.props;
     return (
       <>
         {inTransit
@@ -27,32 +38,32 @@ export default class InTransit extends Component {
                   key={inTransit._id}
                 >
                   <TableCell
-                    style={{ color: '#353535' }}
+                    className={classes.tableCellColor}
                     component="th"
                     scope="row"
                     align="center"
                   >
                     #{inTransit.awbno ? inTransit.awbno : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {inTransit.carrier ? inTransit.carrier : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {inTransit.from ? inTransit.from : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {inTransit.to ? inTransit.to : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {inTransit.carrier ? inTransit.carrier : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {inTransit.pickup_date
                       ? moment(inTransit.pickup_date).format('L')
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell className={classes.tableCellColor} align="center">
                     {inTransit.extra_fields
                       ? moment(
                           inTransit.extra_fields.expected_delivery_date
@@ -60,7 +71,10 @@ export default class InTransit extends Component {
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#44b856' }} align="center">
+                  <TableCell
+                    className={classes.statusDeliveredColor}
+                    align="center"
+                  >
                     {inTransit.current_status ? inTransit.current_status : ''}
                   </TableCell>
                 </TableRow>
@@ -70,3 +84,5 @@ export default class InTransit extends Component {
     );
   }
 }
+
+export default withStyles(styles)(InTransit);
