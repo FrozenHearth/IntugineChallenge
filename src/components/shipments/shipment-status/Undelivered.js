@@ -28,42 +28,37 @@ export default class UndeliveredShipments extends Component {
                   className="shipment_item"
                   key={undeliveredShipments._id}
                 >
-                  <TableCell
-                    style={{ color: '#353535' }}
-                    component="th"
-                    scope="row"
-                    align="center"
-                  >
+                  <TableCell component="th" scope="row" align="center">
                     #
                     {undeliveredShipments.awbno
                       ? undeliveredShipments.awbno
                       : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell align="center">
                     {undeliveredShipments.carrier
                       ? undeliveredShipments.carrier
                       : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell align="center">
                     {undeliveredShipments.from
                       ? undeliveredShipments.from
                       : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell align="center">
                     {undeliveredShipments.to ? undeliveredShipments.to : 'NA'}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell align="center">
                     {undeliveredShipments.carrier
                       ? undeliveredShipments.carrier
                       : ''}
                   </TableCell>
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell align="center">
                     {undeliveredShipments.pickup_date
                       ? moment(undeliveredShipments.pickup_date).format('L')
                       : 'NA'}
                   </TableCell>
 
-                  <TableCell style={{ color: '#353535' }} align="center">
+                  <TableCell align="center">
                     {undeliveredShipments.extra_fields
                       ? moment(
                           undeliveredShipments.extra_fields
