@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -32,30 +32,28 @@ const styles = {
   }
 };
 
-class Header extends Component {
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
-        <AppBar className={classes.navBar} color="default">
-          <Toolbar>
-            <img src={IntugineIcon} alt="" />
-            <Typography className={classes.brandName} variant="h6">
-              Intugine
-            </Typography>
-            <div className={classes.navLinkContainer}>
-              <Button className={classes.homeBtn}>Home</Button>
-              <Button>Brands</Button>
-              <Button>Transporters</Button>
-              <Button className={classes.profileCircle}>
-                <img src={ProfileIcon} alt="" />
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
-}
+const Header = props => {
+  const { classes } = props;
+  return (
+    <div>
+      <AppBar className={classes.navBar} color="default">
+        <Toolbar>
+          <img src={IntugineIcon} alt="" />
+          <Typography className={classes.brandName} variant="h6">
+            Intugine
+          </Typography>
+          <div className={classes.navLinkContainer}>
+            <Button className={classes.homeBtn}>Home</Button>
+            <Button>Brands</Button>
+            <Button>Transporters</Button>
+            <Button className={classes.profileCircle}>
+              <img src={ProfileIcon} alt="" />
+            </Button>
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+};
 
 export default withStyles(styles)(Header);
