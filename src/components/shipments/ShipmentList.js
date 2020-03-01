@@ -39,15 +39,18 @@ class ShipmentList extends Component {
       clickedShipmentId: ''
     };
   }
+  getCounterStatusCodesLength = (counterStatusCodesList, statusCode) => {
+    return counterStatusCodesList.filter(val => val === `${statusCode}`).length;
+  };
   getShipmentList = () => {
     const headerConfig = {
       headers: { Authorization: `Bearer ${process.env.REACT_APP_BEARER_TOKEN}` }
     };
     axios
       .post(
-        'https://93870v1pgk.execute-api.ap-south-1.amazonaws.com/latest/shipments/vishu',
+        `${process.env.REACT_APP_API_URL}`,
         {
-          email: 'vishu.dbz@gmail.com'
+          email: `${process.env.REACT_APP_USER_EMAIL}`
         },
         headerConfig
       )
@@ -55,18 +58,26 @@ class ShipmentList extends Component {
         const counterStatusCodesList = res.data.data.map(
           csc => csc.current_status_code
         );
-        const delivered = counterStatusCodesList.filter(val => val === 'DEL')
-          .length;
-        const inTransit = counterStatusCodesList.filter(val => val === 'INT')
-          .length;
-        const undelivered = counterStatusCodesList.filter(val => val === 'UND')
-          .length;
-        const noInformationYet = counterStatusCodesList.filter(
-          val => val === 'NFI'
-        ).length;
-        const outForDelivery = counterStatusCodesList.filter(
-          val => val === 'OOD'
-        ).length;
+        const delivered = this.getCounterStatusCodesLength(
+          counterStatusCodesList,
+          'DEL'
+        );
+        const inTransit = this.getCounterStatusCodesLength(
+          counterStatusCodesList,
+          'INT'
+        );
+        const undelivered = this.getCounterStatusCodesLength(
+          counterStatusCodesList,
+          'UND'
+        );
+        const noInformationYet = this.getCounterStatusCodesLength(
+          counterStatusCodesList,
+          'NFI'
+        );
+        const outForDelivery = this.getCounterStatusCodesLength(
+          counterStatusCodesList,
+          'OOD'
+        );
         this.setState({
           shipmentList: res.data.data,
           counterStatusCodes: {
@@ -88,13 +99,7 @@ class ShipmentList extends Component {
     this.setState({
       activeCounter: !this.state.activeCounter
     });
-    if (
-      clickedStatusCode === 'DEL' ||
-      clickedStatusCode === 'INT' ||
-      clickedStatusCode === 'UND' ||
-      clickedStatusCode === 'NFI' ||
-      clickedStatusCode === 'OOD'
-    ) {
+    if (clickedStatusCode) {
       this.setState({
         clickedStatusCode
       });
@@ -105,6 +110,11 @@ class ShipmentList extends Component {
       clickedShipmentId: id
     });
   };
+  getShipmentData = (shipmentList, current_status_code) => {
+    return shipmentList.filter(
+      csc => csc.current_status_code === `${current_status_code}`
+    );
+  };
   render() {
     const { shipmentList, clickedShipmentId } = this.state;
     const { classes } = this.props;
@@ -114,20 +124,13 @@ class ShipmentList extends Component {
      as per the status code
     ------------------------------------------------ */
 
-    const deliveredShipmentData = shipmentList.filter(
-      csc => csc.current_status_code === 'DEL'
-    );
-    const inTransitShipmentData = shipmentList.filter(
-      csc => csc.current_status_code === 'INT'
-    );
-    const noInfoShipments = shipmentList.filter(
-      csc => csc.current_status_code === 'NFI'
-    );
-    const undeliveredShipmentData = shipmentList.filter(
-      csc => csc.current_status_code === 'UND'
-    );
-    const outForDeliveryShipmentData = shipmentList.filter(
-      csc => csc.current_status_code === 'OOD'
+    const deliveredShipmentData = this.getShipmentData(shipmentList, 'DEL');
+    const inTransitShipmentData = this.getShipmentData(shipmentList, 'INT');
+    const noInfoShipments = this.getShipmentData(shipmentList, 'NFI');
+    const undeliveredShipmentData = this.getShipmentData(shipmentList, 'UND');
+    const outForDeliveryShipmentData = this.getShipmentData(
+      shipmentList,
+      'OOD'
     );
     const { counterStatusCodes, clickedStatusCode } = this.state;
     return (
