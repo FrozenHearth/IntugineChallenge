@@ -3,7 +3,7 @@ import DestinationIcon from '../../assets/images/destination.svg';
 import WarehouseIcon from '../../assets/images/warehouse.svg';
 import { withStyles } from '@material-ui/core/styles';
 import '../../styles/Timeline.css';
-import TimelineView from './TimelineView';
+import { TimelineView } from './TimelineView';
 
 const styles = {
   destinationIcon: {
