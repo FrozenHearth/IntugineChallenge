@@ -29,8 +29,8 @@ class DeliveredShipments extends Component {
     this.deliveredItemRef[0] && this.deliveredItemRef[0].click();
     // Trigger auto-click on the first item of the shipment to display it's timeline view by default
   }
-  componentDidUpdate(props) {
-    if (this.props.delivered.length !== props.delivered.length) {
+  componentDidUpdate(prevProps) {
+    if (this.props.delivered.length !== prevProps.delivered.length) {
       this.deliveredItemRef[0] && this.deliveredItemRef[0].click();
     }
   }
@@ -82,7 +82,7 @@ class DeliveredShipments extends Component {
                     className={classes.statusDeliveredColor}
                     align="center"
                   >
-                    {delivered.current_status ? delivered.current_status : ''}
+                    {delivered.current_status ? delivered.current_status : 'NA'}
                   </TableCell>
                 </TableRow>
               ))
