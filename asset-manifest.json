@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/IntugineDashboard/static/css/main.6cc36cc2.chunk.css",
+    "main.js": "/IntugineDashboard/static/js/main.7b7c9693.chunk.js",
+    "main.js.map": "/IntugineDashboard/static/js/main.7b7c9693.chunk.js.map",
+    "runtime-main.js": "/IntugineDashboard/static/js/runtime-main.23e742cf.js",
+    "runtime-main.js.map": "/IntugineDashboard/static/js/runtime-main.23e742cf.js.map",
+    "static/js/2.8e8b7fce.chunk.js": "/IntugineDashboard/static/js/2.8e8b7fce.chunk.js",
+    "static/js/2.8e8b7fce.chunk.js.map": "/IntugineDashboard/static/js/2.8e8b7fce.chunk.js.map",
+    "index.html": "/IntugineDashboard/index.html",
+    "precache-manifest.da7f0b2efaf7d3af134c838fd6ffa7db.js": "/IntugineDashboard/precache-manifest.da7f0b2efaf7d3af134c838fd6ffa7db.js",
+    "service-worker.js": "/IntugineDashboard/service-worker.js",
+    "static/css/main.6cc36cc2.chunk.css.map": "/IntugineDashboard/static/css/main.6cc36cc2.chunk.css.map",
+    "static/js/2.8e8b7fce.chunk.js.LICENSE.txt": "/IntugineDashboard/static/js/2.8e8b7fce.chunk.js.LICENSE.txt",
+    "static/media/destination.svg": "/IntugineDashboard/static/media/destination.85f9fdcc.svg",
+    "static/media/logo.svg": "/IntugineDashboard/static/media/logo.877653ae.svg",
+    "static/media/profile.svg": "/IntugineDashboard/static/media/profile.52b703a8.svg",
+    "static/media/warehouse.svg": "/IntugineDashboard/static/media/warehouse.1f5bfd3e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.23e742cf.js",
+    "static/js/2.8e8b7fce.chunk.js",
+    "static/css/main.6cc36cc2.chunk.css",
+    "static/js/main.7b7c9693.chunk.js"
+  ]
+}
