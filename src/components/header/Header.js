@@ -7,8 +7,6 @@ import IntugineIcon from '../../assets/images/logo.svg';
 import ProfileIcon from '../../assets/images/profile.svg';
 import { withStyles } from '@material-ui/core/styles';
 
-// Using custom styles object, and withStyles HOC to add custom styles to Material UI
-
 const styles = {
   profileCircle: {
     backgroundColor: '#bfc2c9',
