@@ -13,7 +13,7 @@ export default class UndeliveredShipments extends Component {
     // Trigger auto-click on the first item of the shipment to display it's timeline view by default
   }
   render() {
-    const undeliveredShipments = this.props.undeliveredShipments;
+    const { undeliveredShipments } = this.props;
     return (
       <>
         {undeliveredShipments
