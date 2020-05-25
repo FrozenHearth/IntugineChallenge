@@ -46,9 +46,11 @@ class Timeline extends Component {
       outForDelivery,
       undelivered
     } = this.props;
+    
     /* ------------------------------------------------
     Get timeline view for shipment item that is clicked
-    --------------------------------------------------- */
+    --------------------------------------------------- 
+    */
 
     const deliveredTimelineView = this.statusCodeTimelineView(delivered);
 
@@ -85,7 +87,7 @@ class Timeline extends Component {
         )}
 
         <div className="vertical_line"></div>
-        <div className="warehouse_icon_circle">
+         <div className="warehouse_icon_circle">
           <img className={classes.warehouseIcon} src={WarehouseIcon} alt="" />
         </div>
       </div>
